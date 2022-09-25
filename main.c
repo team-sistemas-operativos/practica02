@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "pila.h"
+#include "pila.h"
 #include "cola.h"
 #include "cola.c"
+#include <string.h>
 
 int balanced_parenthesis(char* expr);
 void bfs(int** digraph, int vertices);
@@ -26,6 +27,16 @@ int main()
     matrix[6][3] = 1;
     // Prueba con dichos casos
     bfs(matrix, 7);
+    char expresion1[] = "((((";
+    char expresion2[] = "()))))()";
+    char expresion3[] = "(()(((()))))";
+    char expresion4[] = "()()()()()";
+    char expresion5[] = "((()))()(";
+    balanced_parenthesis(expresion1);
+    balanced_parenthesis(expresion2);
+    balanced_parenthesis(expresion3);
+    balanced_parenthesis(expresion4);
+    balanced_parenthesis(expresion5);
     return 0;
 }
 
@@ -35,10 +46,32 @@ int main()
  * @param expr Una expresión de paréntesis a realizar
  * @return 0 si no hay balance, 1 e.o.c.
  */
-int balanced_parenthesis(char* expr)
-{
-    // TODO: Impl
-    return -1;
+int balanced_parenthesis(char *expr) {
+    printf("\n\nLa expresion es: %s\n", expr);
+    int capacidad = strlen(expr);
+    struct Pila *pila = crea_pila(capacidad);
+    for(int i = 0; i < capacidad; i++) {
+        if(expr[i] == '(') {
+            push(pila, expr[i]); 
+        } else {
+            if(pila->cabeza == -1) { // primer parentesis derecho sin un izquierdo
+                printf("Y su valor de balanceo es: 0\n\n");              
+                return 0;
+            } else if(pila->arreglo[pila->cabeza] == '(' && expr[i] == ')') {
+                pop(pila);
+                continue;
+            }
+        printf("Y su valor de balanceo es: 0\n\n");
+        return 0; //la pila no esta vacia y hay parentesis cerrado sin abierto
+        }
+    }
+    if(!es_vacia(pila)) { // hubo parentesis izquierdos sin cerrar
+        printf("Y su valor de balanceo es: 0\n\n");
+        return 0;
+    } else {
+        printf("Y su valor de balanceo es: 1\n\n");
+        return 1;
+    }
 }
 
 /**
