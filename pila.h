@@ -47,10 +47,10 @@ int es_vacia(Pila* pila){
  */
 void pop(Pila* pila){
   if(es_vacia(pila)){
-    printf("La pila esta vacia\n");
+    //printf("La pila esta vacia\n");
   }else{  
     pila->arreglo[pila->cabeza--];
-    printf("se saco el tope de la pila\n");
+    //printf("se saco el tope de la pila\n");
   }
 }
 
@@ -61,10 +61,10 @@ void pop(Pila* pila){
  */
 void push(Pila* pila, char elem){
   if(es_llena(pila)){
-    printf("La pila esta llena\n");
+    //printf("La pila esta llena\n");
   }else{
     pila->arreglo[++pila->cabeza] = elem;
-    printf("Se agrego el elemento\n");
+    //printf("Se agrego el elemento\n");
   }
 }
 
